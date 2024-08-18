@@ -1,4 +1,4 @@
-name: React.js CI
+name: Quizzy
 
 on:
   pull_request:
