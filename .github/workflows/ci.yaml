@@ -6,7 +6,7 @@ on:
 
 jobs:
   frontend-test:
-    runs-on: ubuntu-latest
+    runs-on: windows-latest
     defaults:
       run:
         working-directory: ./quiz-app
@@ -34,17 +34,16 @@ jobs:
 
       - name: Build
         run: npm run build
-        working-directory:
-          ./quiz-app
+        working-directory: ./quiz-app
 
-          # Setup sonar-scanner
+      # Setup sonar-scanner
       - name: Setup SonarQube
         uses: warchant/setup-sonar-scanner@v8
 
       - name: Analyze with SonarCloud
         uses: sonarsource/sonarcloud-github-action@master
         env:
-          GITHUB_TOKEN: ${{ secrets._GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         with:
           projectBaseDir: quiz-app
@@ -57,7 +56,7 @@ jobs:
             -Dsonar.verbose=true
 
   backend-test:
-    runs-on: ubuntu-latest
+    runs-on: windows-latest
     defaults:
       run:
         working-directory: ./backend
@@ -81,10 +80,9 @@ jobs:
           npm run prettier
           npm test
         env:
-          CI:
-            true
+          CI: true
 
-            # Setup sonar-scanner
+      # Setup sonar-scanner
       - name: Setup SonarQube
         uses: warchant/setup-sonar-scanner@v8
 
@@ -105,7 +103,7 @@ jobs:
 
   frontend-security:
     needs: frontend-test
-    runs-on: ubuntu-latest
+    runs-on: windows-latest
     defaults:
       run:
         working-directory: ./quiz-app
@@ -133,7 +131,7 @@ jobs:
 
   backend-security:
     needs: backend-test
-    runs-on: ubuntu-latest
+    runs-on: windows-latest
     defaults:
       run:
         working-directory: ./backend
@@ -161,7 +159,7 @@ jobs:
 
   frontend-image:
     needs: frontend-security
-    runs-on: ubuntu-latest
+    runs-on: windows-latest
     permissions:
       contents: read
       security-events: write
@@ -207,7 +205,7 @@ jobs:
 
   backend-image:
     needs: backend-security
-    runs-on: ubuntu-latest
+    runs-on: windows-latest
     permissions:
       contents: read
       security-events: write
@@ -253,7 +251,7 @@ jobs:
 
   k8s-manifest-scan:
     needs: [backend-security, frontend-security]
-    runs-on: ubuntu-latest
+    runs-on: windows-latest
     steps:
       - uses: actions/checkout@v4
       - name: Run Snyk to check Kubernetes manifest file for issues
