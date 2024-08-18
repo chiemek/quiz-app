@@ -22,7 +22,7 @@ spec:
     spec:
       containers:
         - name: backend
-          image: emeka/backend-api:latest
+          image: ""
           ports:
             - containerPort: 3000
           env:

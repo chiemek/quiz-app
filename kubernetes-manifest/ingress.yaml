@@ -10,7 +10,7 @@ metadata:
 spec:
   ingressClassName: alb
   rules:
-    - host: quizapp.emeka.com
+    - host: quizapp.cloudcorehub.com
       http:
         paths:
           - path: /api/questions

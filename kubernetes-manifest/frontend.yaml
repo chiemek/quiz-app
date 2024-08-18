@@ -22,7 +22,7 @@ spec:
     spec:
       containers:
         - name: frontend
-          image: emeka/frontend-js:latest
+          image: ""
           env:
             - name: VITE_REACT_APP_API_URL
               value: "http://localhost:3000/api/questions"
